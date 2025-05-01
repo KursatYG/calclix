@@ -24,7 +24,7 @@
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/yourusername/calclix.git
+git clone https://github.com/KursatYG/calclix.git
 cd calclix
 npm install
 npm run dev
