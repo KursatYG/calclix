@@ -10,8 +10,6 @@ export default function UnitConverter() {
   const params = useParams();
   const unitType = params.unitType as string;
 
-  console.log(unitType);
-
   if (!unitType || !(unitType in unitDefinitions)) {
     return <div>Geçersiz birim türü</div>;
   }

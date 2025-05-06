@@ -2,17 +2,16 @@ import React from "react";
 
 type Props = {
   title: string;
-  type?: "equal";
-  onClick: (title: string) => void;
+  onClick: () => void;
+  disabled?: boolean  
 };
 
-const Button = ({ title, type, onClick }: Props) => {
+const Button = ({ title, onClick,disabled }: Props) => {
   return (
     <button
-      onClick={() => onClick(title)}
-      className={`sm:w-16 sm:h-16 text-2xl ${
-        type == "equal" ? "bg-white/30" : "bg-white/10"
-      } text-white/80  rounded-2xl backdrop-blur-md transition-all duration-200 active:scale-95 hover:scale-105 hover:bg-white/30 shadow-md flex  justify-center items-center p-2.5 cursor-pointer`}
+    disabled={disabled}
+      onClick={onClick}
+      className="bg-white/50 p-2 rounded-2xl mt-8 text-[#0F2027] w-full hover:bg-white/30 active:bg-white/60  active:scale-98 transition-all duration-75 cursor-pointer"
     >
       {title}
     </button>

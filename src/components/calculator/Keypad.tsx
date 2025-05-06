@@ -1,10 +1,10 @@
 import React from "react";
-import Button from "../Button";
+import Key from "../Key";
 
 type Props = {
   handleNumberInput: (title: string) => void;
   handleOperatorInput: (title: string) => void;
-  handleClear: (btnClear:string) => void;
+  handleClear: (btnClear: string) => void;
   handleDelete: () => void;
   handleEqual: () => void;
   handlePercentage: () => void;
@@ -24,26 +24,26 @@ const Keypad = ({
 }: Props) => {
   return (
     <div className="grid grid-cols-4 gap-2">
-      <Button title={btnClear} onClick={() => handleClear(btnClear)} />
-      <Button title="⌫" onClick={handleDelete} />
-      <Button title="%" onClick={handlePercentage} />
-      <Button title="÷" onClick={handleOperatorInput} />
-      <Button title="7" onClick={handleNumberInput} />
-      <Button title="8" onClick={handleNumberInput} />
-      <Button title="9" onClick={handleNumberInput} />
-      <Button title="x" onClick={handleOperatorInput} />
-      <Button title="4" onClick={handleNumberInput} />
-      <Button title="5" onClick={handleNumberInput} />
-      <Button title="6" onClick={handleNumberInput} />
-      <Button title="-" onClick={handleOperatorInput} />
-      <Button title="1" onClick={handleNumberInput} />
-      <Button title="2" onClick={handleNumberInput} />
-      <Button title="3" onClick={handleNumberInput} />
-      <Button title="+" onClick={handleOperatorInput} />
-      <Button title="0" onClick={handleNumberInput} />
-      <Button title="00" onClick={handleNumberInput} />
-      <Button title="." onClick={handleComma} />
-      <Button title="=" type="equal" onClick={handleEqual} />
+      <Key title={btnClear} onClick={() => handleClear(btnClear)} />
+      <Key title="⌫" onClick={handleDelete} />
+      <Key title="%" onClick={handlePercentage} />
+      <Key title="÷" onClick={handleOperatorInput} />
+      <Key title="7" onClick={handleNumberInput} />
+      <Key title="8" onClick={handleNumberInput} />
+      <Key title="9" onClick={handleNumberInput} />
+      <Key title="x" onClick={handleOperatorInput} />
+      <Key title="4" onClick={handleNumberInput} />
+      <Key title="5" onClick={handleNumberInput} />
+      <Key title="6" onClick={handleNumberInput} />
+      <Key title="-" onClick={handleOperatorInput} />
+      <Key title="1" onClick={handleNumberInput} />
+      <Key title="2" onClick={handleNumberInput} />
+      <Key title="3" onClick={handleNumberInput} />
+      <Key title="+" onClick={handleOperatorInput} />
+      <Key title="0" onClick={handleNumberInput} />
+      <Key title="00" onClick={handleNumberInput} />
+      <Key title="." onClick={handleComma} />
+      <Key title="=" type="equal" onClick={handleEqual} />
     </div>
   );
 };

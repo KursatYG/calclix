@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Unit, UnitType } from "@/types/units";
 import { convertUnit, unitDefinitions } from "@/lib/unitDefinitions";
 
-
 interface NumberConverterProps {
   unitType: UnitType;
 }
@@ -16,7 +15,12 @@ export default function Converter({ unitType }: NumberConverterProps) {
 
   useEffect(() => {
     if (inputValue !== "" && inputValue >= 0) {
-      const result = convertUnit(Number(inputValue), fromUnit, toUnit, unitType);
+      const result = convertUnit(
+        Number(inputValue),
+        fromUnit,
+        toUnit,
+        unitType
+      );
       setOutputValue(Number(result.toFixed(8)));
     } else {
       setOutputValue(0);
@@ -26,30 +30,51 @@ export default function Converter({ unitType }: NumberConverterProps) {
   return (
     <div className="flex flex-col sm:flex-row gap-16">
       <div>
-        <select className="border border-white/50 rounded-2xl p-3 mb-8 outline-0 w-full" value={fromUnit} onChange={(e) => setFromUnit(e.target.value)}>
+        <select
+          className="border border-white/50 rounded-2xl p-3 mb-8 outline-0 w-full"
+          value={fromUnit}
+          onChange={(e) => setFromUnit(e.target.value)}
+        >
           {units.map((unit) => (
-            <option className="bg-[#0F2027] text-sm" key={unit.name} value={unit.name}>
+            <option
+              className="bg-[#0F2027] text-sm"
+              key={unit.name}
+              value={unit.name}
+            >
               {unit.name} {unit.symbol ? `(${unit.symbol})` : ""}
             </option>
           ))}
         </select>
         <input
-        className="outline-0 text-3xl border-b w-full"
+          className="outline-0 text-3xl border-b w-full"
           type="number"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.valueAsNumber || "")}
+          onChange={(e) => {
+            const value = e.target.value;
+            setInputValue(value === "" ? "" : Number(value));
+          }}
           placeholder="Değer girin"
         />
       </div>
       <div>
-        <select className="border border-white/50 rounded-2xl p-3 mb-8 outline-0 w-full" value={toUnit} onChange={(e) => setToUnit(e.target.value)}>
+        <select
+          className="border border-white/50 rounded-2xl p-3 mb-8 outline-0 w-full"
+          value={toUnit}
+          onChange={(e) => setToUnit(e.target.value)}
+        >
           {units.map((unit) => (
             <option className="bg-[#0F2027]" key={unit.name} value={unit.name}>
               {unit.name} {unit.symbol ? `(${unit.symbol})` : ""}
             </option>
           ))}
         </select>
-        <input className="outline-0 text-3xl border-b w-full" type="number" value={outputValue} readOnly placeholder="Sonuç" />
+        <input
+          className="outline-0 text-3xl border-b w-full"
+          type="number"
+          value={outputValue}
+          readOnly
+          placeholder="Sonuç"
+        />
       </div>
     </div>
   );

@@ -15,13 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-gradient-to-r from-[#0F2027] via-[#203A43] to-[#2C5364] max-w-[1440px] m-auto px-4 ">
+      <body className="bg-gradient-to-r from-[#0F2027] via-[#203A43] to-[#2C5364] max-w-[1440px] m-auto px-4 sm:px-8">
         <Navbar />
-        <div className="grid sm:grid-cols-2 w-full sm:h-screen gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 w-full sm:h-screen gap-8">
           <aside className="mb-8">
             <Sidebar />
           </aside>
-          <main className="flex justify-center items-start sm:px-8">
+          <main className="flex justify-center items-start">
             {children}
           </main>
         </div>

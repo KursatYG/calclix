@@ -1,22 +1,35 @@
 import React from "react";
 
 type Props = {
-  title: string;
-  placeholder: string;
-  value: string;
-  onChange: (value:string) => void;
+  title?: string;
+  placeholder?: string;
+  value: string | number;
+  onChange: (value: number) => void;
+  readOnly?: boolean;
+  type: string;
 };
 
-const Input = ({ title, placeholder, value, onChange }: Props) => {
+const Input = ({
+  title,
+  placeholder,
+  value,
+  onChange,
+  readOnly,
+  type,
+}: Props) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <label className="text-sm md:text-base mb-2">{title}</label>
       <input
-        value={value}
-        type="number"
-        className="border-b text-base md:text-lg border-white/50 px-4 pl-0 text-white outline-0"
+        value={value === "" ? "" : String(value)}
+        type={type}
+        className="border-b text-base md:text-lg border-white/50 text-white outline-0"
         placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          const val = e.target.value;
+          onChange(val === "" ? NaN : Number(val));
+        }}
+        readOnly={readOnly}
       />
     </div>
   );
