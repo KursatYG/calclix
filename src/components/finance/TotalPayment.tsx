@@ -1,3 +1,4 @@
+import { formatNumber } from "@/utils/formatNumber";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 
@@ -36,9 +37,6 @@ const TotalPayment = ({
     principalPercentage = (totalInvestment / Number(result)) * 100;
     interestPercentage = (interest / Number(result)) * 100;
   }
-
-  const formatNumber = (num: number) =>
-    num.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
     <div className="">

@@ -8,6 +8,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ['flagsapi.com'],
+  },
 };
 
 module.exports = nextConfig;
