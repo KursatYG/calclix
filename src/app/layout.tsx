@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "../components/Sidebar";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Calclix | KursatYG",
@@ -17,14 +18,16 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-gradient-to-r from-[#0F2027] via-[#203A43] to-[#2C5364] max-w-[1440px] m-auto px-4 sm:px-8">
         <Navbar />
-        <div className="grid grid-cols-1 sm:grid-cols-2 w-full sm:h-screen gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
           <aside className="mb-8">
             <Sidebar />
           </aside>
-          <main className="flex justify-center items-start">
-            {children}
-          </main>
+          <main className="flex justify-center items-start">{children}</main>
         </div>
+        <footer>
+          {" "}
+          <Footer />
+        </footer>
       </body>
     </html>
   );

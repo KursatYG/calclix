@@ -59,11 +59,11 @@ const Page = () => {
   };
 
   return (
-    <div className="text-white/70 sm:border border-white/50 sm:p-6 rounded-2xl sm:max-w-[400px]">
-      <h1 className="text-white font-bold mb-8 text-center">
+    <div className="text-white/70  w-full max-w-[370px]">
+      <h1 className="text-white font-bold mb-8 text-center text-2xl">
         Vücut Kitle Endeksi Hesaplayıcı
       </h1>
-      <div className="flex flex-col items-start gap-8 w-full">
+      <div className="flex flex-col items-center gap-8 w-full  bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-md max-w-md mt-4 text-white/70">
         <div className="flex items-start gap-4  justify-between w-full">
           <div className="w-full">
             <Input
@@ -98,7 +98,6 @@ const Page = () => {
             </div>
           </div>
         </div>
-
         <Input
           type="number"
           title="Boy (cm)"
@@ -112,28 +111,29 @@ const Page = () => {
           placeholder="Kilo girin"
           value={weight}
           onChange={setWeight}
-        />
-      </div>
-
-      <Button title="Hesapla" onClick={calculateBmi} />
-      {bmi !== null && (
-        <div className="flex flex-col gap-3 mt-8 text-white text-center">
-          <p className="font-bold text-5xl">{bmi}</p>
-          <p>Vücut kitle endeksi</p>
-          <p>
-            Kategori: <span className="font-bold">{category}</span>
+        />{" "}
+        <Button title="Hesapla" onClick={calculateBmi} className="w-full" />
+        {bmi !== null && (
+          <div className="flex flex-col gap-3 mt-8 text-white text-center">
+            <p className="font-bold text-5xl">{bmi}</p>
+            <p>Vücut kitle endeksi</p>
+            <p>
+              Kategori: <span className="font-bold">{category}</span>
+            </p>
+            {message && (
+              <p className="mt-2 text-center text-white/80">{message}</p>
+            )}
+          </div>
+        )}
+        {message && !bmi && (
+          <p className="mt-2 text-red-400 text-center">{message}</p>
+        )}
+        {((height !== "" && height <= 0) || (weight !== "" && weight <= 0)) && (
+          <p className="text-red-400 text-sm mt-2 text-center">
+            Boy ve kilo pozitif bir değer olmalıdır.
           </p>
-          {message && <p className="mt-2 text-white/80">{message}</p>}
-        </div>
-      )}
-      {message && !bmi && (
-        <p className="mt-2 text-red-400 text-center">{message}</p>
-      )}
-      {((height !== "" && height <= 0) || (weight !== "" && weight <= 0)) && (
-        <p className="text-red-400 text-sm mt-2 text-center">
-          Boy ve kilo pozitif bir değer olmalıdır.
-        </p>
-      )}
+        )}
+      </div>
     </div>
   );
 };

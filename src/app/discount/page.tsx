@@ -39,9 +39,9 @@ const Page = () => {
   }, [price, discount, priceNum, discountNum, isValid]);
 
   return (
-    <div className="text-white/70 sm:border border-white/50 sm:p-6 rounded-2xl sm:max-w-[400px]">
-      <h1 className="font-bold text-white mb-8 text-center">İndirim</h1>
-      <div className="flex flex-col gap-8 mb-8">
+    <div className="text-white/70  max-w-[370px] w-full">
+      <h1 className="font-bold text-white text-2xl text-center">İndirim</h1>
+      <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-md w-full max-w-md mt-4 text-white/70 flex flex-col gap-8">
         <Input
           type="number"
           title="Normal fiyat"
@@ -71,7 +71,6 @@ const Page = () => {
         </p>
       )}
       {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-      
     </div>
   );
 };

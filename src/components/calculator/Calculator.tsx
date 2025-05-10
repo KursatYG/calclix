@@ -17,14 +17,13 @@ const Calculator = () => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [showFullHistory, setShowFullHistory] = useState(false);
   const [lastTwoHistory, setLastTwoHistory] = useState<HistoryItem[]>([]);
-  
 
   const btnClear = expression === "0" || expression === "" ? "AC" : "C";
 
   const isInvalid =
     expression === "NaN" || expression === "Hata" || expression === "Infinity";
 
-  const handleClear = (buttonTitle:string) => {
+  const handleClear = (buttonTitle: string) => {
     setIsEvaluated(false);
     setExpression("0");
     setResult("");
@@ -235,8 +234,7 @@ const Calculator = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key;
-      console.log("key",key);
-      
+      console.log("key", key);
 
       if (/^[0-9]$/.test(key)) return handleNumberInput(key);
 
@@ -252,7 +250,7 @@ const Calculator = () => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [expression,isEvaluated, result]);
+  }, [expression, isEvaluated, result]);
 
   useEffect(() => {
     const savedHistory = localStorage.getItem("calc-history");
@@ -275,9 +273,8 @@ const Calculator = () => {
     }
   };
 
-
   return (
-    <div className="border w-full max-w-[340px] max-h-[580px] h-screen border-white/30 rounded-2xl pb-6 pt-3 px-6">
+    <div className="bg-white/10 shadow-md w-full max-w-[370px] rounded-2xl pb-6 pt-3 px-6">
       {showFullHistory ? (
         <History
           history={history}
@@ -289,7 +286,7 @@ const Calculator = () => {
           formatNumber={formatNumber}
         />
       ) : (
-        <div>
+        <div className="">
           <button
             onClick={() => setShowFullHistory(true)}
             className="text-md text-white/30 cursor-pointer"

@@ -72,7 +72,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-full max-w-[370px]">
+    <div className="flex flex-col items-center w-full max-w-[370px]">
       <h1 className="text-2xl font-bold text-white mb-4">Tarih Hesaplama</h1>
       <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-md w-full max-w-md mt-4 text-white/70 flex flex-col gap-8">
         <div className="flex flex-col gap-4">

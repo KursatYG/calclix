@@ -27,7 +27,7 @@ const Sidebar = () => {
             : "opacity-0 translate-y-0 pointer-events-none hidden"
         } sm:block sm:opacity-100 sm:pointer-events-auto sm:translate-y-0 transition-all duration-200 ease-in-out`}
       >
-        <div className="flex flex-wrap justify-center gap-5 sm:justify-center sm:border-r  sm:border-white/30">
+        <div className="flex flex-wrap justify-center gap-5 sm:justify-center md:border-r  sm:border-white/30">
           {menuItems.map((item: MenuItem) => {
             const isActive = currentUnitType
               ? `/${currentUnitType}` === item.path

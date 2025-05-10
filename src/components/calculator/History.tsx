@@ -23,7 +23,8 @@ const History = ({
   formatNumber,
 }: Props) => {
   return (
-    <div className="h-full overflow-hidden">
+    <div className="h-[486px]">
+      <div className="h-full overflow-hidden">
       <div className="flex justify-between items-center">
         <button onClick={onBack} className="cursor-pointer">
         <Icon icon="mingcute:arrow-left-line" className="text-white/70 hover:text-white/80 w-6 h-6"/>
@@ -59,6 +60,7 @@ const History = ({
           ))
         )}
       </div>
+    </div>
     </div>
   );
 };
