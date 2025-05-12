@@ -2,25 +2,25 @@
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import { useInput } from "@/hooks/useInput";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
 
 const Page = () => {
-  const [age, setAge] = useState<number | "">("");
   const [selectGender, setSelectGender] = useState<string>("male");
-  const [height, setHeight] = useState<number | "">("");
-  const [weight, setWeight] = useState<number | "">("");
   const [bmi, setBMI] = useState<number | null>(null);
   const [category, setCategory] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+
+  const [inputs, handleChange] = useInput({ age:"",height:"", weight:""  });
 
   const handleGenderSelect = (gender: string) => {
     setSelectGender(gender);
   };
 
-  const numericAge = Number(age);
-  const numericWeight = Number(weight);
-  const numericHeight = Number(height);
+  const numericAge = Number(inputs.age);
+  const numericWeight = Number(inputs.weight);
+  const numericHeight = Number(inputs.height);
 
   const calculateBmi = () => {
     if (numericWeight > 0 && numericHeight > 0 && numericAge > 0) {
@@ -67,11 +67,12 @@ const Page = () => {
         <div className="flex items-start gap-4  justify-between w-full">
           <div className="w-full">
             <Input
+              name="age"
               type="number"
               title="Yaş"
               placeholder="Yaş girin"
-              value={age}
-              onChange={setAge}
+              value={inputs.age}
+              onChange={handleChange}
             />
           </div>
           <div className="flex flex-col w-full">
@@ -99,18 +100,20 @@ const Page = () => {
           </div>
         </div>
         <Input
+          name="height"
           type="number"
           title="Boy (cm)"
           placeholder="Boy girin"
-          value={height}
-          onChange={setHeight}
+          value={inputs.height}
+          onChange={handleChange}
         />
         <Input
+          name="weight"
           type="number"
           title="Ağırlık (kg)"
           placeholder="Kilo girin"
-          value={weight}
-          onChange={setWeight}
+          value={inputs.weight}
+          onChange={handleChange}
         />{" "}
         <Button title="Hesapla" onClick={calculateBmi} className="w-full" />
         {bmi !== null && (
@@ -128,7 +131,7 @@ const Page = () => {
         {message && !bmi && (
           <p className="mt-2 text-red-400 text-center">{message}</p>
         )}
-        {((height !== "" && height <= 0) || (weight !== "" && weight <= 0)) && (
+        {((inputs.height !== "" && inputs.height <= 0) || (inputs.weight !== "" && inputs.weight <= 0)) && (
           <p className="text-red-400 text-sm mt-2 text-center">
             Boy ve kilo pozitif bir değer olmalıdır.
           </p>

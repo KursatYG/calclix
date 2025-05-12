@@ -1,66 +1,38 @@
-import { useState, useEffect } from "react";
-import { Unit, UnitType } from "@/types/units";
-import { convertUnit, unitDefinitions } from "@/lib/unitDefinitions";
 import Button from "./Button";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Select from "./Select";
+import Input from "./Input";
+import { useInput } from "@/hooks/useInput";
+import { useUnitConverter } from "@/hooks/useUnitConverter";
+import { UnitType } from "@/types/units";
 
-interface NumberConverterProps {
+interface ConverterProps {
   unitType: UnitType;
 }
 
-export default function Converter({ unitType }: NumberConverterProps) {
-  const units: Unit[] = unitDefinitions[unitType];
-  const [fromUnit, setFromUnit] = useState<string>(units[0].name);
-  const [toUnit, setToUnit] = useState<string>(units[1].name);
-  const [inputValue, setInputValue] = useState<number | "">(0);
-  const [outputValue, setOutputValue] = useState<number>(0);
-
-  const handleSwitch = () => {
-    setFromUnit(toUnit);
-    setToUnit(fromUnit);
-  };
-
-  useEffect(() => {
-    if (inputValue !== "" && inputValue >= 0) {
-      const result = convertUnit(
-        Number(inputValue),
-        fromUnit,
-        toUnit,
-        unitType
-      );
-      setOutputValue(Number(result.toFixed(8)));
-    } else {
-      setOutputValue(0);
-    }
-  }, [inputValue, fromUnit, toUnit, unitType]);
+export default function Converter({ unitType }: ConverterProps) {
+  const [inputs, handleChange] = useInput({ inputValue: 0 });
+  const {
+    fromUnit,
+    toUnit,
+    outputValue,
+    setFromUnit,
+    setToUnit,
+    switchUnits,
+    units,
+  } = useUnitConverter(Number(inputs.inputValue), unitType);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-16 sm:gap-8">
+    <div className="flex flex-col  gap-8">
       <div className="">
-        <select
-          className="border border-white/50 rounded-2xl py-3 px-1 mb-8 outline-0 w-full text-sm"
-          value={fromUnit}
-          onChange={(e) => setFromUnit(e.target.value)}
-        >
-          {units.map((unit) => (
-            <option
-              className="bg-[#0F2027] text-sm"
-              key={unit.name}
-              value={unit.name}
-            >
-              {unit.name} {unit.symbol ? `(${unit.symbol})` : ""}
-            </option>
-          ))}
-        </select>
-        <input
-          className="outline-0 text-3xl border-b w-full"
+        <Select value={fromUnit} onChange={setFromUnit} options={units} />
+        <Input
+          name="inputValue"
           type="number"
-          value={inputValue}
-          onChange={(e) => {
-            const value = e.target.value;
-            setInputValue(value === "" ? "" : Number(value));
-          }}
+          value={inputs.inputValue.toString()}
           placeholder="Değer girin"
+          onChange={handleChange}
+          className="text-2xl"
         />
       </div>
       <div className="transform transition-transform duration-300">
@@ -68,31 +40,22 @@ export default function Converter({ unitType }: NumberConverterProps) {
           title={
             <Icon
               icon="icon-park-outline:switch"
-              className="rotate-90 sm:rotate-0 w-6 h-6 m-auto"
+              className="rotate-90  w-6 h-6 m-auto"
             />
           }
-          onClick={handleSwitch}
+          onClick={switchUnits}
           className="w-full"
         />
       </div>
-      <div>
-        <select
-          className="border border-white/50 rounded-2xl py-3 px-1 text-sm mb-8 outline-0 w-full"
-          value={toUnit}
-          onChange={(e) => setToUnit(e.target.value)}
-        >
-          {units.map((unit) => (
-            <option className="bg-[#0F2027]" key={unit.name} value={unit.name}>
-              {unit.name} {unit.symbol ? `(${unit.symbol})` : ""}
-            </option>
-          ))}
-        </select>
-        <input
-          className="outline-0 text-3xl border-b w-full"
+      <div className="">
+        <Select value={toUnit} onChange={setToUnit} options={units} />
+        <Input
+          name="outputValue"
           type="number"
           value={outputValue}
+          placeholder="Değer girin"
+          className="text-2xl"
           readOnly
-          placeholder="Sonuç"
         />
       </div>
     </div>

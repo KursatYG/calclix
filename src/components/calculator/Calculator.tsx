@@ -4,6 +4,8 @@ import Display from "./Display";
 import Keypad from "./Keypad";
 import { evaluate } from "mathjs";
 import History from "./History";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { formatExpression, formatNumber } from "@/utils/formatNumber";
 
 type HistoryItem = {
   expression: string;
@@ -11,10 +13,14 @@ type HistoryItem = {
 };
 
 const Calculator = () => {
+  const [history, setHistory] = useLocalStorage<HistoryItem[]>(
+    "calc-history",
+    []
+  );
+
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState("");
   const [isEvaluated, setIsEvaluated] = useState(false);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
   const [showFullHistory, setShowFullHistory] = useState(false);
   const [lastTwoHistory, setLastTwoHistory] = useState<HistoryItem[]>([]);
 
@@ -185,22 +191,6 @@ const Calculator = () => {
     }
   };
 
-  const formatNumber = (value: string): string => {
-    const parts = value.split(/([+\-x÷])/);
-    const formattedParts = parts.map((part) => {
-      if (!isNaN(Number(part))) {
-        const [whole, decimal] = part.split(",");
-        const formattedWhole = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return decimal ? `${formattedWhole},${decimal}` : formattedWhole;
-      }
-      return part;
-    });
-    return formattedParts.join("");
-  };
-
-  const formatExpression = (expression: string): string => {
-    return expression.replace(/\d+/g, (match) => formatNumber(match));
-  };
 
   useEffect(() => {
     if (expression === "" || expression === "0") {
@@ -234,7 +224,6 @@ const Calculator = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key;
-      console.log("key", key);
 
       if (/^[0-9]$/.test(key)) return handleNumberInput(key);
 
@@ -251,17 +240,6 @@ const Calculator = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [expression, isEvaluated, result]);
-
-  useEffect(() => {
-    const savedHistory = localStorage.getItem("calc-history");
-    if (savedHistory) {
-      setHistory(JSON.parse(savedHistory));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("calc-history", JSON.stringify(history));
-  }, [history]);
 
   const handleClearHistory = () => {
     const confirmClear = window.confirm(

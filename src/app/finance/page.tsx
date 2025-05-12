@@ -3,11 +3,10 @@
 import Button from "@/components/Button";
 import TotalPayment from "@/components/finance/TotalPayment";
 import Input from "@/components/Input";
+import { useInput } from "@/hooks/useInput";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const [money, setMoney] = useState<number | "">("");
-  const [interest, setInterest] = useState<number | "">("");
   const [time, setTime] = useState<number | "">(3);
   const [investType, setInvestType] = useState<"only" | "recurring">("only");
   const [selected, setSelected] = useState<"credit" | "investment">("credit");
@@ -16,8 +15,10 @@ const Page = () => {
   const [error, setError] = useState<string>("");
   const [payment, setPayment] = useState<number | null>(null);
 
-  const moneyNum = Number(money);
-  const interestNum = Number(interest);
+  const [inputs,handleChange] = useInput({amount:"",rate:""});
+
+  const moneyNum = Number(inputs.amount);
+  const interestNum = Number(inputs.rate);
   const timeNum = Number(time);
 
   const isValid =
@@ -32,8 +33,8 @@ const Page = () => {
   const calculatePayment = () => {
     if (
       !isValid ||
-      money === "" ||
-      interest === "" ||
+      inputs.amount === "" ||
+      inputs.rate === "" ||
       time === "" ||
       interestNum === 0 ||
       moneyNum === 0
@@ -75,7 +76,7 @@ const Page = () => {
     if (resultScreen && !isValid) {
       setResultScreen(false);
     }
-  }, [money, interest, time, isValid]);
+  }, [inputs.amount, inputs.rate, time, isValid]);
 
   return (
     <div className="flex flex-col items-center w-full max-w-[370px]">
@@ -88,7 +89,7 @@ const Page = () => {
             time={time}
             selected={selected}
             payment={payment}
-            money={money}
+            money={inputs.amount}
             investType={investType}
 
           />
@@ -97,10 +98,11 @@ const Page = () => {
             <div className="flex flex-col gap-1">
               <label className="text-white/80 text-sm">Ana Para (TL)</label>
               <Input
+                name="amount"
                 type="number"
                 placeholder="Miktar girin"
-                value={money}
-                onChange={setMoney}
+                value={inputs.amount}
+                onChange={handleChange}
               />
             </div>
             <div className="flex gap-2">
@@ -128,10 +130,11 @@ const Page = () => {
             <div className="flex flex-col gap-1">
               <label className="text-white/80 text-sm">Faiz Oranı (%)</label>
               <Input
+                name="rate"
                 type="number"
                 placeholder="Oran girin"
-                value={interest}
-                onChange={setInterest}
+                value={inputs.rate}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-1">

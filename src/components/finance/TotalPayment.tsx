@@ -1,4 +1,4 @@
-import { formatNumber } from "@/utils/formatNumber";
+import { formatNumberLs } from "@/utils/formatNumber";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 
@@ -57,14 +57,18 @@ const TotalPayment = ({
           </h2>
           <p className="">{time} ay</p>
           <p className="text-2xl text-white font-bold">
-            {selected === "credit" ? `${formatNumber(Number(payment))}` : `${formatNumber(Number(result))}`}
+            {selected === "credit"
+              ? `${formatNumberLs(Number(payment))}`
+              : `${formatNumberLs(Number(result))}`}
           </p>
         </div>
         <div className="flex flex-col gap-3">
           {selected === "credit" && (
             <div className="flex flex-col items-center mb-4">
               <span className="text-sm">Toplam ödeme</span>{" "}
-              <span className="text-white font-bold">{formatNumber(Number(result))}</span>
+              <span className="text-white font-bold">
+                {formatNumberLs(Number(result))}
+              </span>
             </div>
           )}
           <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden mb-4 relative flex">
@@ -81,7 +85,9 @@ const TotalPayment = ({
             <div className="w-2 h-2 rounded-full bg-white"></div>
             <p className=" flex justify-between w-full">
               Toplam yatırım{" "}
-              <span className="text-white font-bold">{formatNumber(totalInvestment)}</span>
+              <span className="text-white font-bold">
+                {formatNumberLs(totalInvestment)}
+              </span>
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -89,7 +95,7 @@ const TotalPayment = ({
             <p className=" flex justify-between w-full">
               Toplam faiz{" "}
               <span className="text-white font-bold">
-                {formatNumber(interest)}
+                {formatNumberLs(interest)}
               </span>
             </p>
           </div>

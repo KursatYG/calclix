@@ -1,31 +1,33 @@
-import { currencyCodes } from "@/data/currencyData";
-import Image from "next/image";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 
-type Props= {
-selectedCurrency: string
-onChange?: (value: string) => void;
-}
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+  options: { name: string; symbol?: string }[];
+};
 
-const Select = ({selectedCurrency, onChange}:Props) => {
-
-    const countryCode = selectedCurrency.substring(0,2)
-
+const Select = ({ value, onChange, options }: Props) => {
   return (
-    <div className="flex items-center gap-2 border rounded-lg border-white/30 shadow-2xl drop-shadow-2xl px-2">
-      <Image
-        src={`https://flagsapi.com/${countryCode}/flat/64.png`}
-        width={36}
-        height={10}
-        alt=""
-      />
-      <select className=" w-full outline-0" value={selectedCurrency} onChange={(e)=> onChange?.(e.target.value)}>
-        {Object.entries(currencyCodes).map(([code, name]) => (
-          <option value={code} key={code} className="bg-[#0F2027] text-wrap">
-            {name} ({code})
+    <div className="relative mb-8">
+      <select
+        className="bg-white/20 drop-shadow-lg shadow-md rounded-2xl py-3 px-3 outline-0 w-full  text-sm appearance-none"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {options.map((option) => (
+          <option
+            className="bg-[#0F2027] text-sm"
+            key={option.name}
+            value={option.name}
+          >
+            {option.name} {option.symbol ? `(${option.symbol})` : ""}
           </option>
         ))}
       </select>
+      <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none ">
+        <Icon icon="mdi:chevron-down" className="w-5 h-5" />
+      </div>
     </div>
   );
 };
