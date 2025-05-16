@@ -4,16 +4,10 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { useInput } from "@/hooks/useInput";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Metadata } from "next";
+
 import React, { useState } from "react";
 
-export const metadata: Metadata = {
-  title: "Calclix | Vücut Kütle İndeksi Hesaplama | KursatYG",
-  description:
-    "Boy ve kilonuzu girerek Vücut Kütle İndeksi (VKİ) değerinizi öğrenin. Hızlı, ücretsiz ve mobil uyumlu VKİ hesaplama aracı.",
-  keywords:
-    "vücut kütle indeksi, vki hesaplama, bmi hesaplama, sağlık hesaplama, ücretsiz araç",
-};
+
 
 const Page = () => {
   const [selectGender, setSelectGender] = useState<string>("male");
