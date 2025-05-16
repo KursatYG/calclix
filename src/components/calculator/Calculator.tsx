@@ -191,7 +191,6 @@ const Calculator = () => {
     }
   };
 
-
   useEffect(() => {
     if (expression === "" || expression === "0") {
       setResult("");
@@ -252,45 +251,50 @@ const Calculator = () => {
   };
 
   return (
-    <div className="bg-white/10 shadow-md w-full max-w-[370px] rounded-2xl pb-6 pt-3 px-6">
-      {showFullHistory ? (
-        <History
-          history={history}
-          onBack={() => {
-            setShowFullHistory(false);
-          }}
-          handleClearHistory={handleClearHistory}
-          formatExpression={formatExpression}
-          formatNumber={formatNumber}
-        />
-      ) : (
-        <div className="">
-          <button
-            onClick={() => setShowFullHistory(true)}
-            className="text-md text-white/30 cursor-pointer"
-          >
-            İşlem Geçmişi
-          </button>
-          <Display
-            value={formatNumber(expression || "0")}
-            result={formatNumber(result)}
-            type={isEvaluated}
-            lastTwoHistory={lastTwoHistory}
+    <div className="max-w-[370px] w-full">
+      <h1 className="font-bold text-white text-2xl text-center mb-6">
+        Hesap Makinesi
+      </h1>
+      <div className="bg-white/10 shadow-md rounded-2xl pb-6 pt-3 px-6">
+        {showFullHistory ? (
+          <History
+            history={history}
+            onBack={() => {
+              setShowFullHistory(false);
+            }}
+            handleClearHistory={handleClearHistory}
             formatExpression={formatExpression}
             formatNumber={formatNumber}
           />
-          <Keypad
-            handleNumberInput={handleNumberInput}
-            handleOperatorInput={handleOperatorInput}
-            handleClear={handleClear}
-            handleDelete={handleDelete}
-            handleEqual={handleEqual}
-            handlePercentage={handlePercentage}
-            handleComma={handleComma}
-            btnClear={btnClear}
-          />
-        </div>
-      )}
+        ) : (
+          <div className="">
+            <button
+              onClick={() => setShowFullHistory(true)}
+              className="text-md text-white/30 cursor-pointer"
+            >
+              İşlem Geçmişi
+            </button>
+            <Display
+              value={formatNumber(expression || "0")}
+              result={formatNumber(result)}
+              type={isEvaluated}
+              lastTwoHistory={lastTwoHistory}
+              formatExpression={formatExpression}
+              formatNumber={formatNumber}
+            />
+            <Keypad
+              handleNumberInput={handleNumberInput}
+              handleOperatorInput={handleOperatorInput}
+              handleClear={handleClear}
+              handleDelete={handleDelete}
+              handleEqual={handleEqual}
+              handlePercentage={handlePercentage}
+              handleComma={handleComma}
+              btnClear={btnClear}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

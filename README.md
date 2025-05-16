@@ -51,6 +51,7 @@ npm run dev
 
 ## 📸 Screenshots
 
+(https://calclix.vercel.app/screenshots/home.png)
 
 
 ---
@@ -67,7 +68,7 @@ npm run dev
 
 ## 🔗 Live Demo
 
-
+https://calclix.vercel.app
 
 ---
 

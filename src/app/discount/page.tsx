@@ -3,6 +3,7 @@ import Input from "@/components/Input";
 import { useInput } from "@/hooks/useInput";
 import React, { useEffect, useState } from "react";
 
+
 const validateInputs = (price: number, discount: number) => {
   const isValidPrice = !isNaN(price) && price >= 0;
   const isValidDiscount = !isNaN(discount) && discount >= 0 && discount <= 100;

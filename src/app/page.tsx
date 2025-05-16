@@ -1,10 +1,8 @@
-import Calculator from '@/components/calculator/Calculator'
-import React from 'react'
+import Calculator from "@/components/calculator/Calculator";
+import React from "react";
 
 const page = () => {
-  return (
-    <Calculator/>
-  )
-}
+  return <Calculator />;
+};
 
-export default page
+export default page;
